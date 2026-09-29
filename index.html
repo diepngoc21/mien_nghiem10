@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toán 10 - Hệ Bất Phương Trình Bậc Nhất Hai Ẩn</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- KaTeX for crisp math formula rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+  
+  <style>
+    /* Font and custom scrollbars */
+    @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+    .katex {
+      font-size: 1.05em !important;
+    }
+    .tab-active {
+      border-bottom: 3px solid #2563eb;
+      color: #1d4ed8;
+      font-weight: 700;
+    }
+    .badge-step {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased">
+  
+  <!-- Header / Navigation Bar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-black text-xl shadow-md">
+          ∑
+        </div>
+        <div>
+          <h1 class="text-lg md:text-xl font-bold text-slate-900 tracking-tight leading-tight">
+            Toán Học 10: Hệ Bất Phương Trình Bậc Nhất Hai Ẩn
+          </h1>
+          <p class="text-xs text-slate-500 font-medium">Chương trình Giáo dục phổ thông mới &bull; Tương tác trực quan</p>
+        </div>
+      </div>
+      
+      <!-- Summary points badge -->
+      <div class="flex items-center space-x-4">
+        <div class="bg-blue-50 border border-blue-200 text-blue-700 px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
+          Tổng điểm: <span id="navTotalScore" class="ml-1 text-sm font-extrabold text-blue-800">0/13</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="max-w-6xl mx-auto px-4 flex border-t border-slate-100 overflow-x-auto text-sm font-medium">
+      <button onclick="switchScreen(1)" id="tabBtn1" class="tab-active py-3 px-5 whitespace-nowrap transition-colors flex items-center gap-2">
+        <span class="badge-step bg-blue-100 text-blue-700 text-xs font-bold">1</span>
+        <span>Màn 1: Lý Thuyết & Kiểm Tra</span>
+      </button>
+      <button onclick="switchScreen(2)" id="tabBtn2" class="py-3 px-5 text-slate-600 hover:text-blue-600 whitespace-nowrap transition-colors flex items-center gap-2">
+        <span class="badge-step bg-slate-100 text-slate-600 text-xs font-bold">2</span>
+        <span>Màn 2: Vận Dụng Cơ Bản (5 câu)</span>
+      </button>
+      <button onclick="switchScreen(3)" id="tabBtn3" class="py-3 px-5 text-slate-600 hover:text-blue-600 whitespace-nowrap transition-colors flex items-center gap-2">
+        <span class="badge-step bg-slate-100 text-slate-600 text-xs font-bold">3</span>
+        <span>Màn 3: Vận Dụng Nâng Cao (3 câu)</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="max-w-6xl w-full mx-auto px-4 py-6 flex-1">
+    
+    <!-- ========================================== -->
+    <!-- MÀN 1: LÝ THUYẾT & 5 CÂU HỎI KIỂM TRA      -->
+    <!-- ========================================== -->
+    <section id="screen1" class="space-y-8 block">
+      
+      <!-- Lý thuyết tóm tắt -->
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-extrabold text-blue-600">Trọng tâm kiến thức</span>
+            <h2 class="text-2xl font-black text-slate-900 mt-1">Lý thuyết cốt lõi</h2>
+          </div>
+          <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-bold">Cần nắm vững</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <!-- Cột 1 -->
+          <div class="space-y-4">
+            <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-100">
+              <h3 class="font-bold text-blue-900 text-base flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                1. Bất phương trình bậc nhất hai ẩn
+              </h3>
+              <p class="text-sm text-slate-700 mt-2 leading-relaxed">
+                Là bất phương trình có dạng tổng quát:
+              </p>
+              <div class="bg-white py-2 px-3 rounded-lg border border-blue-200 my-2 text-center text-blue-950 font-semibold">
+                $$ax + by \le c \quad (ax + by < c, \; ax + by \ge c, \; ax + by > c)$$
+              </div>
+              <p class="text-xs text-slate-600">
+                Trong đó $a, b, c \in \mathbb{R}$ và $a^2 + b^2 \ne 0$ (tức $a$ và $b$ không đồng thời bằng 0).
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-indigo-50/70 border border-indigo-100">
+              <h3 class="font-bold text-indigo-900 text-base flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+                2. Hệ bất phương trình bậc nhất hai ẩn
+              </h3>
+              <p class="text-sm text-slate-700 mt-2 leading-relaxed">
+                Gồm hai hay nhiều bất phương trình bậc nhất hai ẩn $x, y$. Miền nghiệm của hệ là <strong>giao</strong> các miền nghiệm của từng bất phương trình trong hệ.
+              </p>
+              <div class="bg-white py-2 px-3 rounded-lg border border-indigo-200 my-2 text-xs text-indigo-950 font-medium">
+                Miền nghiệm thường là một miền đa giác (tam giác, tứ giác) hoặc một miền không bị chặn trên mặt phẳng tọa độ $Oxy$.
+              </div>
+            </div>
+          </div>
+
+          <!-- Cột 2 -->
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                3. Quy trình 3 bước biểu diễn miền nghiệm
+              </h3>
+              <ol class="mt-3 space-y-3 text-sm text-slate-700">
+                <li class="flex items-start gap-2">
+                  <span class="font-bold text-blue-600 bg-white shadow-xs border px-2 py-0.5 rounded text-xs">B1</span>
+                  <span><strong>Vẽ đường thẳng bờ $d$:</strong> $ax + by = c$. (Nếu dấu $\ge$ hoặc $\le$ thì lấy cả bờ nét liền; nếu $>$ hoặc $<$ thì bờ nét đứt).</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="font-bold text-blue-600 bg-white shadow-xs border px-2 py-0.5 rounded text-xs">B2</span>
+                  <span><strong>Chọn điểm thử $M(x_0, y_0) \notin d$:</strong> Thông thường ưu tiên gốc tọa độ $O(0,0)$ nếu $c \ne 0$. Tính giá trị $ax_0 + by_0$ so với $c$.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="font-bold text-blue-600 bg-white shadow-xs border px-2 py-0.5 rounded text-xs">B3</span>
+                  <span><strong>Kết luận & Gạch bỏ:</strong> Nếu $M(x_0,y_0)$ thỏa mãn BPT thì nửa mặt phẳng chứa $M$ là miền nghiệm. Miền không thỏa mãn sẽ bị gạch bỏ.</span>
+                </li>
+              </ol>
+            </div>
+            
+            <div class="mt-4 p-3 bg-amber-50 rounded-lg border border-amber-200 text-amber-900 text-xs">
+              <strong>💡 Lưu ý quan trọng:</strong> Nếu bài toán yêu cầu tìm giá trị lớn nhất/nhỏ nhất của $F(x,y)=ax+by$ trên miền đa giác lồi, giá trị tối ưu luôn đạt được tại <em>ít nhất một trong các đỉnh</em> của đa giác đó!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-100">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-extrabold text-blue-600">Thực hành củng cố</span>
+            <h3 class="text-xl font-bold text-slate-900">5 câu hỏi kiểm tra lý thuyết</h3>
+          </div>
+          <div id="quizScore1" class="text-sm font-semibold text-slate-600 bg-slate-100 px-3 py-1 rounded-lg">
+            Đã làm: 0/5
+          </div>
+        </div>
+
+        <div id="theoryQuizContainer" class="mt-6 space-y-6">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MÀN 2: VẬN DỤNG CƠ BẢN (5 CÂU CÓ SVG)     -->
+    <!-- ========================================== -->
+    <section id="screen2" class="space-y-8 hidden">
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-100">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-extrabold text-emerald-600">Luyện tập kỹ năng</span>
+            <h2 class="text-2xl font-black text-slate-900">Màn 2: Vận dụng cơ bản</h2>
+            <p class="text-sm text-slate-600 mt-1">Xác định điểm thuộc miền nghiệm, diện tích và tính chất hình học của miền nghiệm.</p>
+          </div>
+          <div id="quizScore2" class="text-sm font-semibold text-slate-600 bg-slate-100 px-3 py-1 rounded-lg">
+            Đã làm: 0/5
+          </div>
+        </div>
+
+        <div id="basicQuizContainer" class="mt-6 space-y-8">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MÀN 3: VẬN DỤNG NÂNG CAO (3 BÀI TOÁN TỐI ƯU)-->
+    <!-- ========================================== -->
+    <section id="screen3" class="space-y-8 hidden">
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-slate-200">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-100">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-extrabold text-purple-600">Bài toán thực tế & Tối ưu hóa</span>
+            <h2 class="text-2xl font-black text-slate-900">Màn 3: Vận dụng nâng cao</h2>
+            <p class="text-sm text-slate-600 mt-1">Áp dụng phương pháp quy hoạch tuyến tính giải các bài toán tối ưu kinh tế và đời sống.</p>
+          </div>
+          <div id="quizScore3" class="text-sm font-semibold text-slate-600 bg-slate-100 px-3 py-1 rounded-lg">
+            Đã làm: 0/3
+          </div>
+        </div>
+
+        <!-- Khung phương pháp giải nhanh -->
+        <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 my-6 text-purple-900 text-sm">
+          <p class="font-bold flex items-center gap-2 mb-2">
+            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            Thuật toán tìm Giá trị Lớn nhất / Nhỏ nhất của hàm mục tiêu $F(x, y) = ax + by$:
+          </p>
+          <ul class="list-disc list-inside space-y-1 text-xs md:text-sm pl-2">
+            <li><strong>Bước 1:</strong> Đặt biến $x, y$ và tìm điều kiện ràng buộc $\rightarrow$ Lập hệ bất phương trình bậc nhất hai ẩn.</li>
+            <li><strong>Bước 2:</strong> Biểu diễn hình học miền nghiệm của hệ trên mặt phẳng tọa độ $Oxy$ (thường là miền đa giác lồi).</li>
+            <li><strong>Bước 3:</strong> Xác định chính xác tọa độ tất cả các đỉnh của đa giác miền nghiệm: $A, B, C,...$</li>
+            <li><strong>Bước 4:</strong> Tính giá trị của biểu thức hàm mục tiêu $F(x, y)$ tại từng đỉnh. So sánh và kết luận giá trị tối ưu.</li>
+          </ul>
+        </div>
+
+        <div id="advancedQuizContainer" class="space-y-10">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3">
+      <p>Ứng dụng học tập Toán 10 &bull; Chủ đề: Bất phương trình & Hệ bất phương trình bậc nhất hai ẩn</p>
+      <button onclick="resetAllScores()" class="text-blue-600 hover:text-blue-800 font-medium underline">
+        Làm lại từ đầu tất cả bài tập
+      </button>
+    </div>
+  </footer>
+
+  <!-- Notification Dialog Modal (Custom modal instead of alert) -->
+  <div id="customModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 text-center transform transition-all">
+      <div id="modalIcon" class="w-12 h-12 rounded-full mx-auto flex items-center justify-center mb-3"></div>
+      <h4 id="modalTitle" class="text-lg font-bold text-slate-900 mb-1">Thông báo</h4>
+      <p id="modalMsg" class="text-sm text-slate-600 mb-5"></p>
+      <button onclick="closeModal()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-sm transition-all shadow-md">
+        Đồng ý
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // State management
+    const state = {
+      currentScreen: 1,
+      scores: {
+        screen1: 0,
+        screen2: 0,
+        screen3: 0
+      },
+      answers: {
+        screen1: {},
+        screen2: {},
+        screen3: {}
+      }
+    };
+
+    // Modal Helper
+    function showModal(title, msg, type = 'info') {
+      const modal = document.getElementById('customModal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalMsg = document.getElementById('modalMsg');
+      const modalIcon = document.getElementById('modalIcon');
+
+      modalTitle.innerText = title;
+      modalMsg.innerText = msg;
+
+      if(type === 'success') {
+        modalIcon.className = "w-12 h-12 rounded-full mx-auto flex items-center justify-center mb-3 bg-emerald-100 text-emerald-600";
+        modalIcon.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+      } else {
+        modalIcon.className = "w-12 h-12 rounded-full mx-auto flex items-center justify-center mb-3 bg-blue-100 text-blue-600";
+        modalIcon.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+      }
+      modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('customModal').classList.add('hidden');
+    }
+
+    // Tab Switcher
+    function switchScreen(screenNum) {
+      state.currentScreen = screenNum;
+      for (let i = 1; i <= 3; i++) {
+        const sec = document.getElementById(`screen${i}`);
+        const tabBtn = document.getElementById(`tabBtn${i}`);
+        if (i === screenNum) {
+          sec.classList.remove('hidden');
+          sec.classList.add('block');
+          tabBtn.className = "tab-active py-3 px-5 whitespace-nowrap transition-colors flex items-center gap-2";
+        } else {
+          sec.classList.remove('block');
+          sec.classList.add('hidden');
+          tabBtn.className = "py-3 px-5 text-slate-600 hover:text-blue-600 whitespace-nowrap transition-colors flex items-center gap-2";
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const theoryQuestions = [
+      {
+        id: 1,
+        question: "Cặp số nào sau đây là một nghiệm của bất phương trình: $$2x - 3y + 4 \\le 0$$?",
+        options: [
+          { key: "A", text: "$$(1; 2)$$" },
+          { key: "B", text: "$$(0; 1)$$" },
+          { key: "C", text: "$$(3; 1)$$" },
+          { key: "D", text: "$$(-1; 0)$$" }
+        ],
+        correct: "A",
+        explanation: "Thay tọa độ $(1; 2)$ vào vế trái ta có: $2(1) - 3(2) + 4 = 2 - 6 + 4 = 0 \\le 0$ (Đúng). Với các cặp số còn lại: $(0;1) \\rightarrow 1 > 0$; $(3;1) \\rightarrow 7 > 0$; $(-1;0) \\rightarrow 2 > 0$."
+      },
+      {
+        id: 2,
+        question: "Bất phương trình nào sau đây <strong>KHÔNG</strong> phải là bất phương trình bậc nhất hai ẩn?",
+        options: [
+          { key: "A", text: "$$3x - 5y > 7$$" },
+          { key: "B", text: "$$2x^2 + y \\le 1$$" },
+          { key: "C", text: "$$x \\ge 0$$" },
+          { key: "D", text: "$$y - 4 < 0$$" }
+        ],
+        correct: "B",
+        explanation: "Phương án B chứa số hạng $2x^2$ (bậc 2 đối với biến $x$), nên đây không phải là bất phương trình bậc nhất hai ẩn. Các phương án C ($1x + 0y \\ge 0$) và D ($0x + 1y - 4 < 0$) đều là BPT bậc nhất hai ẩn."
+      },
+      {
+        id: 3,
+        question: "Đường thẳng bờ $d: x - 2y = 4$ chia mặt phẳng tọa độ thành hai nửa mặt phẳng. Gốc tọa độ $O(0;0)$ nằm trên nửa mặt phẳng là miền nghiệm của bất phương trình nào?",
+        options: [
+          { key: "A", text: "$$x - 2y > 4$$" },
+          { key: "B", text: "$$x - 2y \\ge 4$$" },
+          { key: "C", text: "$$x - 2y < 4$$" },
+          { key: "D", text: "$$x - 2y \\le -4$$" }
+        ],
+        correct: "C",
+        explanation: "Thay $x = 0, y = 0$ vào biểu thức $x - 2y$ ta được: $0 - 2(0) = 0$. So sánh với số $4$, ta có $0 < 4$. Do đó $O(0;0)$ thuộc miền nghiệm của bất phương trình $x - 2y < 4$."
+      },
+      {
+        id: 4,
+        question: "Miền nghiệm của hệ bất phương trình bậc nhất hai ẩn được xác định là:",
+        options: [
+          { key: "A", text: "Hợp của tất cả miền nghiệm của các bất phương trình trong hệ." },
+          { key: "B", text: "Giao của tất cả miền nghiệm của các bất phương trình trong hệ." },
+          { key: "C", text: "Chỉ gồm các điểm nằm trên các đường thẳng bờ." },
+          { key: "D", text: "Luôn là một hình tam giác." }
+        ],
+        correct: "B",
+        explanation: "Theo định nghĩa, miền nghiệm của một hệ bất phương trình là tập hợp các điểm thỏa mãn đồng thời tất cả các bất phương trình trong hệ, tức là giao của các miền nghiệm thành phần."
+      },
+      {
+        id: 5,
+        question: "Cho biểu thức $F(x, y) = 3x + 2y$ trên miền đa giác lồi tứ giác $ABCD$. Khẳng định nào sau đây là <strong>đúng nhất</strong>?",
+        options: [
+          { key: "A", text: "Giá trị lớn nhất của $F(x,y)$ luôn luôn nằm tại tâm của đa giác." },
+          { key: "B", text: "Giá trị lớn nhất và giá trị nhỏ nhất của $F(x,y)$ luôn đạt tại ít nhất một trong các đỉnh $A, B, C, D$." },
+          { key: "C", text: "Hàm số không thể có giá trị nhỏ nhất trên miền đa giác đóng." },
+          { key: "D", text: "Cần phải thử tất cả vô số điểm trong miền đa giác để tìm cực trị." }
+        ],
+        correct: "B",
+        explanation: "Định lý quy hoạch tuyến tính cơ bản: Giá trị cực trị (GTLN, GTNN) của biểu thức tuyến tính $F(x,y) = ax+by$ trên một miền đa giác đóng luôn đạt tại ít nhất một trong các đỉnh của đa giác đó."
+      }
+    ];
+
+    const basicQuestions = [
+      {
+        id: 1,
+        question: "Điểm nào sau đây thuộc miền nghiệm của hệ bất phương trình: $$\\begin{cases} x + y - 2 \\ge 0 \\\\ 2x - y + 1 > 0 \\end{cases}$$",
+        options: [
+          { key: "A", text: "$$M(0; 0)$$" },
+          { key: "B", text: "$$N(1; 2)$$" },
+          { key: "C", text: "$$P(-2; 1)$$" },
+          { key: "D", text: "$$Q(0; 1)$$" }
+        ],
+        correct: "B",
+        svg: `<svg viewBox="0 0 260 160" class="w-full h-44 bg-slate-50 border border-slate-200 rounded-lg">
+          <!-- Grid & Axes -->
+          <line x1="20" y1="120" x2="240" y2="120" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <line x1="80" y1="140" x2="80" y2="20" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+          <text x="235" y="115" font-size="10" fill="#64748b">x</text>
+          <text x="85" y="25" font-size="10" fill="#64748b">y</text>
+          <text x="70" y="132" font-size="10" fill="#64748b">O</text>
+          <!-- Line 1: x + y = 2 -> (2,0), (0,2) -->
+          <line x1="50" y1="30" x2="160" y2="140" stroke="#2563eb" stroke-width="2"/>
+          <text x="160" y="135" font-size="9" fill="#2563eb">d1</text>
+          <!-- Line 2: 2x - y + 1 = 0 -->
+          <line x1="50" y1="130" x2="120" y2="20" stroke="#16a34a" stroke-dasharray="3,3" stroke-width="2"/>
+          <text x="122" y="28" font-size="9" fill="#16a34a">d2</text>
+          <!-- Point N(1,2) -->
+          <circle cx="110" cy="60" r="4" fill="#ef4444"/>
+          <text x="116" y="58" font-size="10" font-weight="bold" fill="#ef4444">N(1;2)</text>
+          <!-- Point O(0,0) -->
+          <circle cx="80" cy="120" r="3" fill="#64748b"/>
+        </svg>`,
+        explanation: "Thử tọa độ điểm $N(1;2)$: <br/>- BPT 1: $1 + 2 - 2 = 1 \\ge 0$ (Đúng). <br/>- BPT 2: $2(1) - 2 + 1 = 1 > 0$ (Đúng). <br/>Cả hai điều kiện đều thỏa mãn nên $N(1;2)$ thuộc miền nghiệm của hệ."
+      },
+      {
+        id: 2,
+        question: "Miền tam giác $OAB$ trong mặt phẳng tọa độ $Oxy$ với $O(0;0), A(3;0), B(0;3)$ (tính cả các cạnh) là miền nghiệm của hệ bất phương trình nào?",
+        options: [
+          { key: "A", text: "$$\\begin{cases} x \\ge 0 \\\\ y \\ge 0 \\\\ x + y \\le 3 \\end{cases}$$" },
+          { key: "B", text: "$$\\begin{cases} x \\ge 0 \\\\ y \\ge 0 \\\\ x - y \\le 3 \\end{cases}$$" },
+          { key: "C", text: "$$\\begin{cases} x > 0 \\\\ y > 0 \\\\ x + y < 3 \\end{cases}$$" },
+          { key: "D", text: "$$\\begin{cases} x \\le 3 \\\\ y \\le 3 \\\\ x + y \\ge 0 \\end{cases}$$" }
+        ],
+        svg: `<svg viewBox="0 0 260 160" class="w-full h-44 bg-slate-50 border border-slate-200 rounded-lg">
+          <!-- Axes -->
+          <line x1="30" y1="130" x2="230" y2="130" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="60" y1="150" x2="60" y2="20" stroke="#94a3b8" stroke-width="1.5"/>
+          <!-- Shaded Triangle OAB -->
+          <polygon points="60,130 180,130 60,30" fill="#93c5fd" fill-opacity="0.6" stroke="#2563eb" stroke-width="2"/>
+          <circle cx="60" cy="130" r="3.5" fill="#1e3a8a"/>
+          <circle cx="180" cy="130" r="3.5" fill="#1e3a8a"/>
+          <circle cx="60" cy="30" r="3.5" fill="#1e3a8a"/>
+          <text x="48" y="142" font-size="10" font-weight="bold">O</text>
+          <text x="175" y="145" font-size="10" font-weight="bold">A(3;0)</text>
+          <text x="42" y="32" font-size="10" font-weight="bold">B(0;3)</text>
+          <text x="120" y="70" font-size="10" fill="#1d4ed8" font-weight="bold">x + y ≤ 3</text>
+        </svg>`,
+        correct: "A",
+        explanation: "Cạnh $OA$ nằm trên trục $Ox$ ($y = 0, x \\ge 0$), cạnh $OB$ nằm trên trục $Oy$ ($x = 0, y \\ge 0$), cạnh $AB$ qua $(3;0)$ và $(0;3)$ có phương trình $x + y = 3$. Vì gốc $O(0;0)$ thuộc tam giác và $0 + 0 \\le 3$, đồng thời lấy cả biên nên hệ là: $x \\ge 0, y \\ge 0, x + y \\le 3$."
+      },
+      {
+        id: 3,
+        question: "Xác định tọa độ giao điểm $A$ của hai đường thẳng biên trong hệ bất phương trình sau: $$\\begin{cases} 2x + y = 6 \\\\ x - y = 3 \\end{cases}$$",
+        options: [
+          { key: "A", text: "$$A(3; 0)$$" },
+          { key: "B", text: "$$A(1; 4)$$" },
+          { key: "C", text: "$$A(2; 2)$$" },
+          { key: "D", text: "$$A(0; 6)$$" }
+        ],
+        svg: `<svg viewBox="0 0 260 160" class="w-full h-44 bg-slate-50 border border-slate-200 rounded-lg">
+          <line x1="20" y1="110" x2="240" y2="110" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="60" y1="150" x2="60" y2="20" stroke="#94a3b8" stroke-width="1.5"/>
+          <!-- 2x + y = 6: (0,6), (3,0) -->
+          <line x1="45" y1="20" x2="195" y2="120" stroke="#0284c7" stroke-width="2"/>
+          <!-- x - y = 3: (3,0), (0,-3) -->
+          <line x1="45" y1="140" x2="195" y2="60" stroke="#ea580c" stroke-width="2"/>
+          <circle cx="180" cy="110" r="4.5" fill="#dc2626"/>
+          <text x="175" y="100" font-size="11" font-weight="bold" fill="#dc2626">A(3; 0)</text>
+          <text x="50" y="122" font-size="9">O</text>
+        </svg>`,
+        correct: "A",
+        explanation: "Cộng hai phương trình vế theo vế: $(2x + y) + (x - y) = 6 + 3 \\Rightarrow 3x = 9 \\Rightarrow x = 3$. Thay vào phương trình thứ hai: $3 - y = 3 \\Rightarrow y = 0$. Vậy tọa độ giao điểm là $A(3; 0)$."
+      },
+      {
+        id: 4,
+        question: "Diện tích $S$ của miền nghiệm được giới hạn bởi hệ bất phương trình sau bằng bao nhiêu? $$\\begin{cases} 0 \\le x \\le 4 \\\\ 0 \\le y \\le 3 \\end{cases}$$",
+        options: [
+          { key: "A", text: "$$S = 7$$" },
+          { key: "B", text: "$$S = 12$$" },
+          { key: "C", text: "$$S = 24$$" },
+          { key: "D", text: "$$S = 6$$" }
+        ],
+        svg: `<svg viewBox="0 0 260 160" class="w-full h-44 bg-slate-50 border border-slate-200 rounded-lg">
+          <line x1="30" y1="130" x2="230" y2="130" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="60" y1="150" x2="60" y2="20" stroke="#94a3b8" stroke-width="1.5"/>
+          <rect x="60" y="50" width="120" height="80" fill="#a7f3d0" fill-opacity="0.6" stroke="#059669" stroke-width="2"/>
+          <text x="105" y="95" font-size="12" font-weight="bold" fill="#065f46">S = 4 × 3 = 12</text>
+          <text x="172" y="145" font-size="10" font-weight="bold">x=4</text>
+          <text x="40" y="55" font-size="10" font-weight="bold">y=3</text>
+          <text x="50" y="142" font-size="10">O</text>
+        </svg>`,
+        correct: "B",
+        explanation: "Miền nghiệm của hệ là một hình chữ nhật với một đỉnh là gốc $O(0;0)$, chiều dài bằng 4 (từ $x = 0$ đến $x = 4$) và chiều rộng bằng 3 (từ $y = 0$ đến $y = 3$). Diện tích hình chữ nhật là $S = 4 \\times 3 = 12$."
+      },
+      {
+        id: 5,
+        question: "Một cửa hàng bán hai loại trà sữa $X$ và $Y$. Mỗi ngày cửa hàng làm không quá 80 ly cả hai loại và số ly loại $Y$ không vượt quá hai lần số ly loại $X$. Gọi $x, y$ lần lượt là số ly loại $X$ và $Y$ bán ra ($x, y \\ge 0$). Hệ bất phương trình mô tả các điều kiện là:",
+        options: [
+          { key: "A", text: "$$\\begin{cases} x + y \\le 80 \\\\ y \\le 2x \\\\ x \\ge 0, y \\ge 0 \\end{cases}$$" },
+          { key: "B", text: "$$\\begin{cases} x + y \\ge 80 \\\\ y \\ge 2x \\\\ x \\ge 0, y \\ge 0 \\end{cases}$$" },
+          { key: "C", text: "$$\\begin{cases} x + y \\le 80 \\\\ x \\le 2y \\\\ x \\ge 0, y \\ge 0 \\end{cases}$$" },
+          { key: "D", text: "$$\\begin{cases} x + y = 80 \\\\ 2x - y = 0 \\end{cases}$$" }
+        ],
+        svg: `<svg viewBox="0 0 260 160" class="w-full h-44 bg-slate-50 border border-slate-200 rounded-lg">
+          <line x1="30" y1="130" x2="230" y2="130" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="60" y1="150" x2="60" y2="20" stroke="#94a3b8" stroke-width="1.5"/>
+          <!-- x + y <= 80 -->
+          <line x1="50" y1="35" x2="190" y2="135" stroke="#3b82f6" stroke-width="2"/>
+          <!-- y = 2x -->
+          <line x1="60" y1="130" x2="140" y2="30" stroke="#10b981" stroke-width="2"/>
+          <polygon points="60,130 183,130 101,80" fill="#fde68a" fill-opacity="0.6"/>
+          <text x="110" y="115" font-size="9" fill="#92400e" font-weight="bold">Miền nghiệm</text>
+          <text x="50" y="142" font-size="10">O</text>
+        </svg>`,
+        correct: "A",
+        explanation: "1. Tổng số ly không quá 80: $x + y \\le 80$. <br/>2. Số ly loại $Y$ không vượt quá hai lần loại $X$: $y \\le 2x$. <br/>3. Điều kiện thực tế số lượng: $x \\ge 0, y \\ge 0$ ($x, y \\in \\mathbb{N}$). Vậy chọn đáp án A."
+      }
+    ];
+
+    const advancedQuestions = [
+      {
+        id: 1,
+        title: "Bài 1: Tối ưu hóa lợi nhuận xưởng mộc (Bài toán sản xuất)",
+        desc: "Một xưởng sản xuất hai loại bàn ghế gỗ: Loại I và Loại II. Để sản xuất 1 bộ Loại I cần 2 giờ tiện và 1 giờ hoàn thiện. Để sản xuất 1 bộ Loại II cần 1 giờ tiện và 2 giờ hoàn thiện. Mỗi ngày xưởng có tối đa 10 giờ máy tiện và 8 giờ công hoàn thiện. Tiền lãi mỗi bộ Loại I là 400.000 đồng, Loại II là 300.000 đồng. Hãy tìm mức sản xuất mỗi loại để xưởng đạt tiền lãi lớn nhất trong một ngày.",
+        systemLatex: "$$\\begin{cases} 2x + y \\le 10 \\\\ x + 2y \\le 8 \\\\ x \\ge 0, y \\ge 0 \\end{cases} \\quad F(x, y) = 400x + 300y \\text{ (nghìn đồng)}$$",
+        svg: `<svg viewBox="0 0 280 200" class="w-full max-w-md mx-auto h-52 bg-slate-50 border border-slate-200 rounded-xl">
+          <line x1="30" y1="170" x2="260" y2="170" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="50" y1="190" x2="50" y2="20" stroke="#94a3b8" stroke-width="1.5"/>
+          <!-- 2x + y = 10 -> (0, 10), (5, 0) -->
+          <!-- x + 2y = 8 -> (0, 4), (8, 0) -->
+          <!-- Intersection: 2x+y=10, 2x+4y=16 => 3y=6 => y=2, x=4 -->
+          <!-- Polygon: O(0,0), A(5,0), B(4,2), C(0,4) -->
+          <!-- Scaling: 1 unit = 22 px. O(50, 170). A: (50 + 5*22, 170) = (160, 170). C: (50, 170 - 4*22) = (50, 82). B: (50 + 4*22, 170 - 2*22) = (138, 126) -->
+          <polygon points="50,170 160,170 138,126 50,82" fill="#c7d2fe" fill-opacity="0.6" stroke="#4338ca" stroke-width="2"/>
+          <circle cx="50" cy="170" r="4" fill="#312e81"/>
+          <circle cx="160" cy="170" r="4" fill="#312e81"/>
+          <circle cx="138" cy="126" r="4" fill="#ef4444"/>
+          <circle cx="50" cy="82" r="4" fill="#312e81"/>
+          <text x="36" y="184" font-size="10" font-weight="bold">O(0;0)</text>
+          <text x="155" y="186" font-size="10" font-weight="bold">A(5;0)</text>
+          <text x="144" y="123" font-size="11" font-weight="bold" fill="#b91c1c">B(4;2)</text>
+          <text x="12" y="85" font-size="10" font-weight="bold">C(0;4)</text>
+          <text x="250" y="165" font-size="10" fill="#64748b">x</text>
+          <text x="55" y="25" font-size="10" fill="#64748b">y</text>
+        </svg>`,
+        question: "Cần sản xuất bao nhiêu bộ bàn ghế mỗi loại và tiền lãi lớn nhất đạt được là bao nhiêu?",
+        options: [
+          { key: "A", text: "4 bộ Loại I, 2 bộ Loại II; Lãi lớn nhất: 2.200.000 đồng" },
+          { key: "B", text: "5 bộ Loại I, 0 bộ Loại II; Lãi lớn nhất: 2.000.000 đồng" },
+          { key: "C", text: "0 bộ Loại I, 4 bộ Loại II; Lãi lớn nhất: 1.200.000 đồng" },
+          { key: "D", text: "3 bộ Loại I, 3 bộ Loại II; Lãi lớn nhất: 2.100.000 đồng" }
+        ],
+        correct: "A",
+        stepByStep: `
+          <div class="mt-3 space-y-2 text-xs md:text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <p><strong>1. Lập hệ điều kiện:</strong> Gọi $x, y$ là số bộ Loại I và II sản xuất ($x, y \\ge 0$). Ta có hệ BPT:
+              $$\\begin{cases} 2x + y \\le 10 \\\\ x + 2y \\le 8 \\\\ x \\ge 0, y \\ge 0 \\end{cases}$$
+            </p>
+            <p><strong>2. Xác định các đỉnh của miền tứ giác $OABC$:</strong>
+              <br/>- $O(0; 0)$
+              <br/>- $A(5; 0)$ (giao của $2x + y = 10$ với $Ox$)
+              <br/>- $B(4; 2)$ (nghiệm hệ $2x + y = 10$ và $x + 2y = 8$)
+              <br/>- $C(0; 4)$ (giao của $x + 2y = 8$ với $Oy$)
+            </p>
+            <p><strong>3. Tính giá trị hàm mục tiêu $F(x,y) = 400x + 300y$ (nghìn đồng):</strong>
+              <br/>- $F(O) = 0$
+              <br/>- $F(A) = 400(5) + 300(0) = 2000$ (nghìn)
+              <br/>- $F(B) = 400(4) + 300(2) = 1600 + 600 = 2200$ (nghìn) = <strong>2.200.000 đồng</strong> (Lớn nhất)
+              <br/>- $F(C) = 400(0) + 300(4) = 1200$ (nghìn)
+            </p>
+            <p class="text-emerald-700 font-semibold">Vậy sản xuất 4 bộ Loại I và 2 bộ Loại II mang lại lợi nhuận cao nhất là 2.200.000 đồng.</p>
+          </div>
+        `
+      },
+      {
+        id: 2,
+        title: "Bài 2: Tối ưu chi phí dinh dưỡng chăn nuôi (Bài toán chi phí nhỏ nhất)",
+        desc: "Một trang trại cần phối hợp hai loại thức ăn công nghiệp $A$ và $B$ cho đàn vật nuôi. Mỗi kg thức ăn $A$ chứa 2 đơn vị protein và 1 đơn vị vitamin, giá 20.000 đ/kg. Mỗi kg thức ăn $B$ chứa 1 đơn vị protein và 3 đơn vị vitamin, giá 25.000 đ/kg. Khẩu phần mỗi ngày cần tối thiểu 6 đơn vị protein và 9 đơn vị vitamin. Tìm chi phí tối thiểu để mua thức ăn mỗi ngày.",
+        systemLatex: "$$\\begin{cases} 2x + y \\ge 6 \\\\ x + 3y \\ge 9 \\\\ x \\ge 0, y \\ge 0 \\end{cases} \\quad T(x, y) = 20x + 25y \\text{ (nghìn đồng)}$$",
+        svg: `<svg viewBox="0 0 280 200" class="w-full max-w-md mx-auto h-52 bg-slate-50 border border-slate-200 rounded-xl">
+          <line x1="30" y1="170" x2="260" y2="170" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="50" y1="190" x2="50" y2="20" stroke="#94a3b8" stroke-width="1.5"/>
+          <!-- 2x + y >= 6 -> (0,6), (3,0) -->
+          <!-- x + 3y >= 9 -> (0,3), (9,0) -->
+          <!-- Intersection: 2x+y=6 & x+3y=9 => y = 6-2x => x + 18 - 6x = 9 => 5x = 9 => x = 1.8, y = 2.4 -->
+          <!-- Unbounded polygon vertices: M(0,6), P(1.8; 2.4), N(9,0) -->
+          <polygon points="50,40 50,60 90,120 230,170 260,170 260,40" fill="#fde68a" fill-opacity="0.4" stroke="#d97706" stroke-width="2"/>
+          <circle cx="50" cy="60" r="4" fill="#b45309"/>
+          <circle cx="90" cy="120" r="4" fill="#dc2626"/>
+          <circle cx="230" cy="170" r="4" fill="#b45309"/>
+          <text x="18" y="65" font-size="10" font-weight="bold">M(0;6)</text>
+          <text x="96" y="118" font-size="11" font-weight="bold" fill="#dc2626">P(1.8; 2.4)</text>
+          <text x="215" y="185" font-size="10" font-weight="bold">N(9;0)</text>
+          <text x="250" y="165" font-size="10" fill="#64748b">x</text>
+          <text x="55" y="25" font-size="10" fill="#64748b">y</text>
+        </svg>`,
+        question: "Cần mua bao nhiêu kg mỗi loại để chi phí thấp nhất và chi phí đó là bao nhiêu?",
+        options: [
+          { key: "A", text: "1,8 kg thức ăn A và 2,4 kg thức ăn B; Chi phí: 96.000 đồng" },
+          { key: "B", text: "0 kg thức ăn A và 6 kg thức ăn B; Chi phí: 150.000 đồng" },
+          { key: "C", text: "9 kg thức ăn A và 0 kg thức ăn B; Chi phí: 180.000 đồng" },
+          { key: "D", text: "2 kg thức ăn A và 2 kg thức ăn B; Chi phí: 90.000 đồng" }
+        ],
+        correct: "A",
+        stepByStep: `
+          <div class="mt-3 space-y-2 text-xs md:text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <p><strong>1. Lập hệ bất phương trình:</strong> Gọi $x, y$ (kg) lần lượt là khối lượng thức ăn $A$ và $B$ ($x, y \\ge 0$):
+              $$\\begin{cases} 2x + y \\ge 6 \\quad (\\text{Protein}) \\\\ x + 3y \\ge 9 \\quad (\\text{Vitamin}) \\\\ x \\ge 0, y \\ge 0 \\end{cases}$$
+            </p>
+            <p><strong>2. Miền nghiệm không bị chặn với các đỉnh:</strong>
+              <br/>- $M(0; 6)$ (giao điểm với $Oy$)
+              <br/>- $N(9; 0)$ (giao điểm với $Ox$)
+              <br/>- $P(1.8; 2.4)$ (giao điểm của $2x + y = 6$ và $x + 3y = 9$)
+            </p>
+            <p><strong>3. Tính hàm chi phí $T(x, y) = 20x + 25y$ (nghìn đồng):</strong>
+              <br/>- $T(M) = 20(0) + 25(6) = 150$ (nghìn)
+              <br/>- $T(N) = 20(9) + 25(0) = 180$ (nghìn)
+              <br/>- $T(P) = 20(1.8) + 25(2.4) = 36 + 60 = 96$ (nghìn) = <strong>96.000 đồng</strong> (Nhỏ nhất)
+            </p>
+            <p class="text-emerald-700 font-semibold">Vậy chi phí thấp nhất là 96.000 đồng khi phối trộn 1,8 kg loại A và 2,4 kg loại B.</p>
+          </div>
+        `
+      },
+      {
+        id: 3,
+        title: "Bài 3: Bài toán kinh doanh thuê xe vận tải tối ưu chi phí",
+        desc: "Một công ty cần thuê xe chở 140 người và 9 tấn hàng. Nơi cho thuê xe có hai loại xe: Loại xe lớn (có 10 chiếc) chở được 20 người và 0,6 tấn hàng với giá thuê 4 triệu đồng/xe. Loại xe nhỏ (có 9 chiếc) chở được 10 người và 1,5 tấn hàng với giá thuê 3 triệu đồng/xe. Công ty cần thuê bao nhiêu xe mỗi loại để chi phí thuê là thấp nhất?",
+        systemLatex: "$$\\begin{cases} 0 \\le x \\le 10, \\; 0 \\le y \\le 9 \\\\ 20x + 10y \\ge 140 \\\\ 0.6x + 1.5y \\ge 9 \\end{cases} \\quad C(x, y) = 4x + 3y \\text{ (triệu đồng)}$$",
+        svg: `<svg viewBox="0 0 280 200" class="w-full max-w-md mx-auto h-52 bg-slate-50 border border-slate-200 rounded-xl">
+          <line x1="30" y1="170" x2="260" y2="170" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="50" y1="190" x2="50" y2="20" stroke="#94a3b8" stroke-width="1.5"/>
+          <!-- Rút gọn: 2x + y >= 14; 2x + 5y >= 30; x <= 10; y <= 9 -->
+          <!-- Vertices: (10, 2); (5, 4); (2.5, 9); (10, 9) -->
+          <polygon points="210,140 130,110 90,30 210,30" fill="#fed7aa" fill-opacity="0.6" stroke="#ea580c" stroke-width="2"/>
+          <circle cx="130" cy="110" r="4.5" fill="#dc2626"/>
+          <circle cx="210" cy="140" r="4" fill="#9a3412"/>
+          <circle cx="90" cy="30" r="4" fill="#9a3412"/>
+          <circle cx="210" cy="30" r="4" fill="#9a3412"/>
+          <text x="135" y="105" font-size="11" font-weight="bold" fill="#dc2626">K(5; 4)</text>
+          <text x="215" y="145" font-size="10" font-weight="bold">H(10; 2)</text>
+          <text x="60" y="28" font-size="10" font-weight="bold">E(2.5; 9)</text>
+          <text x="215" y="28" font-size="10" font-weight="bold">G(10; 9)</text>
+          <text x="250" y="165" font-size="10" fill="#64748b">x</text>
+          <text x="55" y="25" font-size="10" fill="#64748b">y</text>
+        </svg>`,
+        question: "Phương án thuê xe tối ưu nhất cho công ty là:",
+        options: [
+          { key: "A", text: "Thuê 5 xe lớn và 4 xe nhỏ; Chi phí nhỏ nhất: 32 triệu đồng" },
+          { key: "B", text: "Thuê 10 xe lớn và 2 xe nhỏ; Chi phí: 46 triệu đồng" },
+          { key: "C", text: "Thuê 6 xe lớn và 2 xe nhỏ; Chi phí: 30 triệu đồng" },
+          { key: "D", text: "Thuê 7 xe lớn và 0 xe nhỏ; Chi phí: 28 triệu đồng" }
+        ],
+        correct: "A",
+        stepByStep: `
+          <div class="mt-3 space-y-2 text-xs md:text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <p><strong>1. Lập hệ ràng buộc:</strong> Gọi $x, y$ lần lượt là số xe lớn và nhỏ cần thuê ($x, y \\in \\mathbb{N}$):
+              $$\\begin{cases} 0 \\le x \\le 10 \\\\ 0 \\le y \\le 9 \\\\ 20x + 10y \\ge 140 \\iff 2x + y \\ge 14 \\\\ 0.6x + 1.5y \\ge 9 \\iff 2x + 5y \\ge 30 \\end{cases}$$
+            </p>
+            <p><strong>2. Tọa độ các đỉnh của miền đa giác nghiệm:</strong>
+              <br/>- $E(2.5; 9)$
+              <br/>- $G(10; 9)$
+              <br/>- $H(10; 2)$
+              <br/>- $K(5; 4)$ (giao điểm của $2x + y = 14$ và $2x + 5y = 30$)
+            </p>
+            <p><strong>3. Đánh giá hàm chi phí $C(x, y) = 4x + 3y$ (triệu đồng):</strong>
+              <br/>Vì $x, y$ là số xe nguyên dương nên ta xét các đỉnh nguyên:
+              <br/>- Tại $H(10; 2)$: $C = 4(10) + 3(2) = 46$ triệu.
+              <br/>- Tại $G(10; 9)$: $C = 4(10) + 3(9) = 67$ triệu.
+              <br/>- Tại $K(5; 4)$: $x = 5, y = 4 \\in \\mathbb{N}$ thỏa mãn. Ta có $C = 4(5) + 3(4) = 20 + 12 = 32$ triệu đồng.
+              <br/>- (Tại điểm $E(2.5; 9)$ không nguyên; điểm nguyên lân cận là $(3; 9) \\rightarrow C = 4(3) + 3(9) = 39$ triệu $> 32$ triệu).
+            </p>
+            <p class="text-emerald-700 font-semibold">Vậy thuê 5 xe lớn và 4 xe nhỏ là phương án tối ưu nhất với chi phí 32 triệu đồng.</p>
+          </div>
+        `
+      }
+    ];
+
+    function renderScreen1() {
+      const container = document.getElementById('theoryQuizContainer');
+      container.innerHTML = theoryQuestions.map((q, idx) => {
+        return `
+          <div class="border border-slate-200 rounded-xl p-5 hover:border-blue-300 transition-colors bg-white" id="t-card-${q.id}">
+            <div class="flex items-start justify-between gap-3">
+              <span class="inline-flex items-center justify-center bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-md">
+                Câu ${idx + 1}
+              </span>
+              <span id="t-status-${q.id}" class="text-xs font-semibold text-slate-400">Chưa trả lời</span>
+            </div>
+            <p class="text-slate-900 font-medium text-base mt-3 leading-relaxed">${q.question}</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-4">
+              ${q.options.map(opt => `
+                <button type="button" onclick="selectAnswer(1, ${q.id}, '${opt.key}')" id="t-btn-${q.id}-${opt.key}"
+                  class="flex items-center text-left p-3 rounded-lg border border-slate-200 text-sm hover:bg-slate-50 transition-all font-medium text-slate-700">
+                  <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center mr-2.5 text-xs font-bold text-slate-600 bg-white">
+                    ${opt.key}
+                  </span>
+                  <span>${opt.text}</span>
+                </button>
+              `).join('')}
+            </div>
+
+            <!-- Explanation box (hidden by default) -->
+            <div id="t-exp-${q.id}" class="hidden mt-4 p-3.5 bg-blue-50/80 border border-blue-200 rounded-lg text-xs md:text-sm text-blue-900">
+              <div class="font-bold mb-1 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                Lời giải chi tiết:
+              </div>
+              <div>${q.explanation}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderScreen2() {
+      const container = document.getElementById('basicQuizContainer');
+      container.innerHTML = basicQuestions.map((q, idx) => {
+        return `
+          <div class="border border-slate-200 rounded-xl p-5 hover:border-emerald-300 transition-colors bg-white" id="b-card-${q.id}">
+            <div class="flex items-start justify-between gap-3">
+              <span class="inline-flex items-center justify-center bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-md">
+                Bài tập ${idx + 1}
+              </span>
+              <span id="b-status-${q.id}" class="text-xs font-semibold text-slate-400">Chưa trả lời</span>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4 items-center">
+              <div class="lg:col-span-7">
+                <p class="text-slate-900 font-medium text-base leading-relaxed">${q.question}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">
+                  ${q.options.map(opt => `
+                    <button type="button" onclick="selectAnswer(2, ${q.id}, '${opt.key}')" id="b-btn-${q.id}-${opt.key}"
+                      class="flex items-center text-left p-3 rounded-lg border border-slate-200 text-sm hover:bg-slate-50 transition-all font-medium text-slate-700">
+                      <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center mr-2.5 text-xs font-bold text-slate-600 bg-white">
+                        ${opt.key}
+                      </span>
+                      <span>${opt.text}</span>
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+              <div class="lg:col-span-5 flex flex-col items-center">
+                <span class="text-xs font-semibold text-slate-400 mb-1">Mô phỏng miền nghiệm trên Oxy:</span>
+                ${q.svg}
+              </div>
+            </div>
+
+            <!-- Explanation box -->
+            <div id="b-exp-${q.id}" class="hidden mt-4 p-3.5 bg-emerald-50 border border-emerald-200 rounded-lg text-xs md:text-sm text-emerald-950">
+              <div class="font-bold mb-1 flex items-center gap-1.5 text-emerald-800">
+                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                Hướng dẫn & Lời giải:
+              </div>
+              <div>${q.explanation}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderScreen3() {
+      const container = document.getElementById('advancedQuizContainer');
+      container.innerHTML = advancedQuestions.map((q, idx) => {
+        return `
+          <div class="border border-slate-200 rounded-2xl p-6 bg-white shadow-xs" id="a-card-${q.id}">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span class="px-3 py-1 bg-purple-100 text-purple-800 font-black rounded-lg text-xs">NÂNG CAO 0${idx + 1}</span>
+                <h3 class="font-bold text-slate-900 text-base md:text-lg">${q.title}</h3>
+              </div>
+              <span id="a-status-${q.id}" class="text-xs font-semibold text-slate-400">Chưa hoàn thành</span>
+            </div>
+
+            <p class="text-slate-700 text-sm md:text-base mt-4 leading-relaxed">${q.desc}</p>
+            
+            <div class="my-4 p-3 bg-slate-50 border border-slate-200 rounded-xl text-center overflow-x-auto text-slate-900 font-semibold">
+              ${q.systemLatex}
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-4 items-center">
+              <div class="lg:col-span-7 space-y-4">
+                <p class="font-bold text-slate-800 text-sm md:text-base">${q.question}</p>
+                <div class="space-y-2.5">
+                  ${q.options.map(opt => `
+                    <button type="button" onclick="selectAnswer(3, ${q.id}, '${opt.key}')" id="a-btn-${q.id}-${opt.key}"
+                      class="w-full flex items-center text-left p-3 rounded-xl border border-slate-200 text-xs md:text-sm hover:bg-slate-50 transition-all font-medium text-slate-700">
+                      <span class="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center mr-3 text-xs font-bold text-slate-600 bg-white shrink-0">
+                        ${opt.key}
+                      </span>
+                      <span>${opt.text}</span>
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div class="lg:col-span-5 flex flex-col items-center">
+                <span class="text-xs font-semibold text-slate-400 mb-1">Đa giác miền nghiệm & các đỉnh:</span>
+                ${q.svg}
+              </div>
+            </div>
+
+            <!-- Step by step breakdown -->
+            <div id="a-exp-${q.id}" class="hidden mt-6">
+              <h4 class="font-bold text-sm text-purple-900 flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Phân tích & Lời giải bài toán tối ưu:
+              </h4>
+              ${q.stepByStep}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectAnswer(screenNum, qId, selectedKey) {
+      const qList = screenNum === 1 ? theoryQuestions : (screenNum === 2 ? basicQuestions : advancedQuestions);
+      const question = qList.find(q => q.id === qId);
+      if (!question) return;
+
+      const prefix = screenNum === 1 ? 't' : (screenNum === 2 ? 'b' : 'a');
+      const alreadyAnswered = state.answers[`screen${screenNum}`][qId] !== undefined;
+
+      // Disable other clicks for this question once answered
+      if (alreadyAnswered) return;
+
+      state.answers[`screen${screenNum}`][qId] = selectedKey;
+
+      const isCorrect = (selectedKey === question.correct);
+      if (isCorrect) {
+        state.scores[`screen${screenNum}`]++;
+      }
+
+      // Update button styles
+      question.options.forEach(opt => {
+        const btn = document.getElementById(`${prefix}-btn-${qId}-${opt.key}`);
+        if (!btn) return;
+        btn.disabled = true;
+        btn.classList.remove('hover:bg-slate-50', 'border-slate-200');
+
+        if (opt.key === question.correct) {
+          btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900', 'font-semibold');
+          btn.querySelector('span:first-child').classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
+        } else if (opt.key === selectedKey && !isCorrect) {
+          btn.classList.add('bg-rose-50', 'border-rose-400', 'text-rose-900');
+          btn.querySelector('span:first-child').classList.add('bg-rose-500', 'text-white', 'border-rose-500');
+        } else {
+          btn.classList.add('opacity-60');
+        }
+      });
+
+      // Update status badge
+      const statusBadge = document.getElementById(`${prefix}-status-${qId}`);
+      if (statusBadge) {
+        if (isCorrect) {
+          statusBadge.innerHTML = `<span class="text-emerald-600 font-bold flex items-center gap-1">✓ Chính xác</span>`;
+        } else {
+          statusBadge.innerHTML = `<span class="text-rose-600 font-bold flex items-center gap-1">✗ Chưa đúng</span>`;
+        }
+      }
+
+      // Show explanation
+      const expBox = document.getElementById(`${prefix}-exp-${qId}`);
+      if (expBox) {
+        expBox.classList.remove('hidden');
+      }
+
+      // Render math formulas in explanation box
+      if (window.renderMathInElement) {
+        renderMathInElement(expBox, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
+      }
+
+      updateScoreDisplay();
+    }
+
+    function updateScoreDisplay() {
+      const s1 = state.scores.screen1;
+      const s2 = state.scores.screen2;
+      const s3 = state.scores.screen3;
+      const total = s1 + s2 + s3;
+
+      document.getElementById('navTotalScore').innerText = `${total}/13`;
+      
+      const count1 = Object.keys(state.answers.screen1).length;
+      document.getElementById('quizScore1').innerText = `Đã làm: ${count1}/5 (Đúng: ${s1})`;
+
+      const count2 = Object.keys(state.answers.screen2).length;
+      document.getElementById('quizScore2').innerText = `Đã làm: ${count2}/5 (Đúng: ${s2})`;
+
+      const count3 = Object.keys(state.answers.screen3).length;
+      document.getElementById('quizScore3').innerText = `Đã làm: ${count3}/3 (Đúng: ${s3})`;
+
+      // Celebration modal if completed all
+      if (count1 === 5 && count2 === 5 && count3 === 3) {
+        showModal(
+          "Hoàn thành xuất sắc!",
+          `Bạn đã hoàn thành tất cả 13 câu hỏi trong 3 màn với tổng số điểm: ${total}/13.`,
+          "success"
+        );
+      }
+    }
+
+    function resetAllScores() {
+      state.scores = { screen1: 0, screen2: 0, screen3: 0 };
+      state.answers = { screen1: {}, screen2: {}, screen3: {} };
+      
+      renderScreen1();
+      renderScreen2();
+      renderScreen3();
+      triggerKaTeX();
+      updateScoreDisplay();
+
+      showModal("Đã đặt lại!", "Toàn bộ bài làm và điểm số đã được làm mới để bạn luyện tập lại từ đầu.", "info");
+    }
+
+    function triggerKaTeX() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    // Window load handler
+    window.addEventListener('DOMContentLoaded', () => {
+      renderScreen1();
+      renderScreen2();
+      renderScreen3();
+
+      // Small delay to ensure KaTeX library is fully ready
+      setTimeout(() => {
+        triggerKaTeX();
+      }, 200);
+    });
+  </script>
+</body>
+</html>
